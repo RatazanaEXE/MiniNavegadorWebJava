@@ -20,12 +20,13 @@ public class MiniNavegador extends Application {
         TextField site = new TextField();
         site.setPromptText("Digite o site aqui");
 
-
         Button buscarSite = new Button("Buscar site");
 
-        buscarSite.setOnAction(e -> {
-            //String texto = site.getText();
+        String inicial = "https://www.google.com/";
 
+        webEngine.load(inicial);
+
+        buscarSite.setOnAction(e -> {
             webEngine.load(site.getText());
         });
 
