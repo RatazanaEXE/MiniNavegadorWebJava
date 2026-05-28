@@ -12,6 +12,15 @@ public class MiniNavegador extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+
+   public String formatarUrl (String url){
+       if (!url.startsWith("http://") && !url.startsWith("https://")) {
+           url = "https://" + url;
+       }
+   return url;}
+
+
     @Override
     public void start(Stage palco) {
         WebView webView = new WebView();
@@ -20,20 +29,19 @@ public class MiniNavegador extends Application {
         TextField site = new TextField();
         site.setPromptText("Digite o site aqui");
 
-        Button buscarSite = new Button("Buscar site");
-
         String inicial = "https://www.google.com/";
 
         webEngine.load(inicial);
 
-        buscarSite.setOnAction(e -> {
-            webEngine.load(site.getText());
+        site.setOnAction(e -> {
+            webEngine.load(formatarUrl(site.getText()));
         });
 
-        VBox layout = new VBox(10, site, buscarSite, webView);
+        VBox layout = new VBox(10, site, webView);
         Scene cena = new Scene(layout, 1200,700);
         palco.setTitle("Navegado web");
         palco.setScene(cena);
         palco.show();
     }
+
 }
