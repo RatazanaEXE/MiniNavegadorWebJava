@@ -1,6 +1,5 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
@@ -30,16 +29,20 @@ public class MiniNavegador extends Application {
         site.setPromptText("Digite o site aqui");
 
         String inicial = "https://www.google.com/";
-
         webEngine.load(inicial);
 
         site.setOnAction(e -> {
             webEngine.load(formatarUrl(site.getText()));
         });
 
+        // Mantém a URL sincronizada com a navegação
+        webEngine.locationProperty().addListener((observable, oldValue, newValue) -> {
+            site.setText(newValue);
+        });
+
         VBox layout = new VBox(10, site, webView);
         Scene cena = new Scene(layout, 1200,700);
-        palco.setTitle("Navegado web");
+        palco.setTitle("Navegador web");
         palco.setScene(cena);
         palco.show();
     }
